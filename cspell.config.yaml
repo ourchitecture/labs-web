@@ -10,7 +10,9 @@ dictionaries: []
 words: []
 ignoreWords:
     - davidanson
-    - madr
+    - MADR
+    - nvmrc
     - Ourchitecture
+    - pnpmrc
     - wireit
 import: []
