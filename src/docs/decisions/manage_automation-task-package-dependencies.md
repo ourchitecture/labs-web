@@ -1,5 +1,4 @@
 ---
-# These are optional elements. Feel free to remove any of them.
 status: accepted
 date: 2023-09-19
 deciders: Ourchitecture
@@ -9,7 +8,7 @@ deciders: Ourchitecture
 
 ## Context and Problem Statement
 
-Building on top of the decision ["Use NodeJS scripts for developer task automation"](./dev-tasks-using-node-scripts.md),
+Building on top of the decision ["Use NodeJS scripts for developer task automation"](./script_automation-tasks.md),
 the NodeJS package management offers a handful of unique tool choices.
 
 ## Considered Options

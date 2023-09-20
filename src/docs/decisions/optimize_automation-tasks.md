@@ -1,5 +1,4 @@
 ---
-# These are optional elements. Feel free to remove any of them.
 status: accepted
 date: 2023-09-19
 deciders: Ourchitecture
@@ -21,7 +20,7 @@ Automation can benefit drastically from caching, dependency management, and more
 
 ## Decision Outcome
 
-Building on the decision to [use NodeJS scripts](./dev-tasks-using-node-scripts.md),
+Building on the decision to [use NodeJS scripts](./script_automation-tasks.md),
 Wireit was selected. The team is already familiar with the choice and the
 advantages of Wireit including task dependencies, localized caching as well
 as Continuous Integration caching across independent executions, performance
