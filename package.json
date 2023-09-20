@@ -9,7 +9,7 @@
         "check": "wireit",
         "check:formatting": "wireit",
         "check:spelling": "wireit",
-        "format": "prettier --help",
+        "format": "prettier --write --config ./.prettierrc.yaml --ignore-path ./.gitignore --ignore-path ./.prettierignore ./",
         "lint-staged": "wireit"
     },
     "wireit": {
@@ -47,6 +47,7 @@
     "devDependencies": {
         "cspell": "^7.0.0",
         "dotenv": "^16.3.1",
+        "husky": "^8.0.3",
         "lint-staged": "^14.0.0",
         "madr": "^3.0.0",
         "prettier": "^3.0.2",
