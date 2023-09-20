@@ -9,6 +9,7 @@ dictionaryDefinitions: []
 dictionaries: []
 words: []
 ignoreWords:
+    - davidanson
     - madr
     - Ourchitecture
     - wireit

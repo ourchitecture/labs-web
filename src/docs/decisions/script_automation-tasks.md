@@ -9,7 +9,8 @@ deciders: Ourchitecture
 
 ## Context and Problem Statement
 
-End-to-end DevOps tasks require automation, including developer tasks and continuous integration and deployment.
+End-to-end DevOps tasks require automation, including developer tasks and
+continuous integration and deployment.
 
 ## Considered Options
 
@@ -20,11 +21,15 @@ End-to-end DevOps tasks require automation, including developer tasks and contin
 
 ## Decision Outcome
 
-Use NodeJS scripts. Team is familiar. As a project focused on web technologies, JavaScript will be the prevailing language. Shell scripts and GNU `make` were strongly considered. However, developers using Windows have to run a shell emulator like Git BASH, Cygwin, etc. or Windows Subsystem for Linux (WSL).
+Use NodeJS scripts. Team is familiar. As a project focused on web technologies,
+JavaScript will be the prevailing language. Shell scripts and GNU `make` were
+strongly considered. However, developers using Windows have to run a shell
+emulator like Git BASH, Cygwin, etc. or Windows Subsystem for Linux (WSL).
 
 ### Consequences
 
--   Good, because the technology choice will align with other future technologies in this project
+-   Good, because the technology choice will align with other future
+    technologies in this project
 
 ## More Information
 

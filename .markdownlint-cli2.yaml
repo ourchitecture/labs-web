@@ -1,0 +1,11 @@
+globs:
+    - '**/*.md'
+ignores:
+    - '#node_modules'
+
+config:
+    list-marker-space:
+        ul_multi: 3
+        ul_single: 3
+    ul-indent:
+        indent: 4

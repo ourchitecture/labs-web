@@ -21,7 +21,11 @@ Automation can benefit drastically from caching, dependency management, and more
 
 ## Decision Outcome
 
-Building on the decision to [use NodeJS scripts](./dev-tasks-using-node-scripts.md), Wireit was selected. The team is already familiar with the choice and the advantages of Wireit including task dependencies, localized caching as well as Continuous Integration caching across independent executions, performance enhancements, multi-project (monorepo) support including dependencies, and more.
+Building on the decision to [use NodeJS scripts](./dev-tasks-using-node-scripts.md),
+Wireit was selected. The team is already familiar with the choice and the
+advantages of Wireit including task dependencies, localized caching as well
+as Continuous Integration caching across independent executions, performance
+enhancements, multi-project (monorepo) support including dependencies, and more.
 
 ### Consequences
 

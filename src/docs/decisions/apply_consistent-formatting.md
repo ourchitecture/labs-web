@@ -1,5 +1,4 @@
 ---
-# These are optional elements. Feel free to remove any of them.
 status: accepted
 date: 2023-09-19
 deciders: Ourchitecture
@@ -9,7 +8,8 @@ deciders: Ourchitecture
 
 ## Context and Problem Statement
 
-Inconsistent formatting is a nuisance that distract readers. Eliminate the inconsistencies!
+Inconsistent formatting is a nuisance that distract readers. Eliminate the
+inconsistencies!
 
 ## Decision Drivers
 
@@ -24,7 +24,13 @@ Inconsistent formatting is a nuisance that distract readers. Eliminate the incon
 
 ## Decision Outcome
 
-Check formatting with prettier; familiar with it and good enough.
+Check general formatting with prettier; familiar with it and good enough.
+
+Check Markdown formatting with "markdownlint", using the "markdownlint-cli2"
+tool.
+
+Recommend the VS Code extension "davidanson.vscode-markdownlint" to improve
+the developer experience.
 
 ### Consequences
 
