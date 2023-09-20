@@ -1,0 +1,56 @@
+{
+    "name": "@ourchitecture/labs-web",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "author": "Ourchitecture",
+    "license": "ISC",
+    "scripts": {
+        "check": "wireit",
+        "check:formatting": "wireit",
+        "check:spelling": "wireit",
+        "format": "prettier --help",
+        "lint-staged": "wireit"
+    },
+    "wireit": {
+        "check": {
+            "dependencies": [
+                "check:formatting",
+                "check:spelling"
+            ]
+        },
+        "check:formatting": {
+            "command": "node ./src/tasks/node/check/formatting",
+            "files": [
+                "**/*",
+                "!.husky",
+                "!.task-output",
+                "!pnpm-lock.yaml"
+            ],
+            "output": [
+                "./.task-output/src/tasks/node/check/formatting.js/*"
+            ]
+        },
+        "check:spelling": {
+            "command": "node ./src/tasks/node/check/spelling",
+            "files": [
+                "**/*",
+                "!.husky",
+                "!.task-output",
+                "!pnpm-lock.yaml"
+            ],
+            "output": [
+                "./.task-output/src/tasks/node/check/spelling.js/*"
+            ]
+        }
+    },
+    "devDependencies": {
+        "cspell": "^7.0.0",
+        "dotenv": "^16.3.1",
+        "lint-staged": "^14.0.0",
+        "madr": "^3.0.0",
+        "prettier": "^3.0.2",
+        "winston": "^3.10.0",
+        "wireit": "^0.10.0"
+    }
+}

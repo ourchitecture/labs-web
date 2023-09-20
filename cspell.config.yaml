@@ -1,0 +1,15 @@
+version: '0.2'
+ignorePaths:
+    - '**/.husky/'
+    - '**/.task-output/'
+    - '**/.wireit/'
+    - '**/node_modules/'
+    - '**/pnpm-lock.yaml'
+dictionaryDefinitions: []
+dictionaries: []
+words: []
+ignoreWords:
+    - madr
+    - Ourchitecture
+    - wireit
+import: []
