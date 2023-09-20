@@ -4,7 +4,7 @@
 
 A collection of web experiments.
 
--   Review the developer tasks defined in "./package.json".
+-   Review the automation tasks [defined in "./package.json"](https://github.com/ourchitecture/labs-web/blob/main/package.json#L8).
 -   See all [design decisions](./src/docs/decisions/).
 
 ## License
