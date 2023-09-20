@@ -12,7 +12,7 @@ on:
 
 env:
     CI: true
-    DEBUG: true
+    # DEBUG: true
 
 jobs:
     build:
