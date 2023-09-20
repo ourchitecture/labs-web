@@ -31,3 +31,5 @@ Building on the decision to [use NodeJS scripts](./dev-tasks-using-node-scripts.
 ## More Information
 
 -   [Wireit website](https://github.com/google/wireit)
+
+\*Standard GNU `make` targets are defined for convenience.

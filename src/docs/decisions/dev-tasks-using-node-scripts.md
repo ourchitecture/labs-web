@@ -29,3 +29,5 @@ Use NodeJS scripts. Team is familiar. As a project focused on web technologies, 
 ## More Information
 
 -   [NodeJS website](https://nodejs.org/en/)
+
+\*Standard GNU `make` targets are defined for convenience.
