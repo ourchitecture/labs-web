@@ -6,6 +6,7 @@ const log = require('../../../libraries/node/log')
 const executePnpmCommand = async (
     scriptFilePath,
     commandLogFileName,
+    isLogStdErrAsErrorEnabled,
     commandArgv
 ) => {
     const commandName = 'pnpm'
@@ -19,7 +20,11 @@ const executePnpmCommand = async (
                 log.info(stdout)
             },
             (stderr) => {
-                log.error(stderr)
+                if (isLogStdErrAsErrorEnabled) {
+                    log.error(stderr)
+                } else {
+                    log.info(stderr)
+                }
             }
         )
 
@@ -64,7 +69,12 @@ const checkFormattingWithPrettier = async (scriptFilePath) => {
         host.getRelativeToRootPath('./'),
     ]
 
-    return await executePnpmCommand(scriptFilePath, 'prettier.log', commandArgv)
+    return await executePnpmCommand(
+        scriptFilePath,
+        'prettier.log',
+        false, // prettier doesn't appear to use 'stderr'
+        commandArgv
+    )
 }
 
 const checkFormattingWithMarkdownlint = async (scriptFilePath) => {
@@ -77,6 +87,7 @@ const checkFormattingWithMarkdownlint = async (scriptFilePath) => {
     return await executePnpmCommand(
         scriptFilePath,
         'markdownlint.log',
+        true, // BUG: markdownlint seems to use 'stderr' for output
         commandArgv
     )
 }
