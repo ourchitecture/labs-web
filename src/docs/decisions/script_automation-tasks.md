@@ -5,11 +5,11 @@ date: 2023-09-19
 deciders: Ourchitecture
 ---
 
-# Use NodeJS scripts for developer task automation
+# Script automation tasks
 
 ## Context and Problem Statement
 
-Developer tasks require automation.
+End-to-end DevOps tasks require automation, including developer tasks and continuous integration and deployment.
 
 ## Considered Options
 

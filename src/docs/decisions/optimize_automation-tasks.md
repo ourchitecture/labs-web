@@ -5,11 +5,11 @@ date: 2023-09-19
 deciders: Ourchitecture
 ---
 
-# Use Wireit for developer task automation
+# Optimize automation tasks
 
 ## Context and Problem Statement
 
-Developer tasks require automation.
+Automation can benefit drastically from caching, dependency management, and more.
 
 ## Considered Options
 

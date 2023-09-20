@@ -5,7 +5,7 @@ date: 2023-09-19
 deciders: Ourchitecture
 ---
 
-# Use `pnpm` for package management
+# Manage automation task package dependencies
 
 ## Context and Problem Statement
 

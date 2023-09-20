@@ -5,7 +5,7 @@ date: 2023-09-19
 deciders: Ourchitecture
 ---
 
-# Use CSpell for source spelling checks
+# Fix spelling mistakes
 
 ## Context and Problem Statement
 

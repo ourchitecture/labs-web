@@ -5,26 +5,26 @@ date: 2023-09-19
 deciders: Ourchitecture
 ---
 
-# Use CSpell for source spelling checks
+# Apply consistent formatting
 
 ## Context and Problem Statement
 
-Spelling errors are a nuisance that distract readers. Eliminate them!
+Inconsistent formatting is a nuisance that distract readers. Eliminate the inconsistencies!
 
 ## Decision Drivers
 
 -   Eliminate reader distractions
--   Provide quick feedback on spelling errors to source code authors
+-   Provide quick feedback on formatting inconsistencies to source code authors
 
 ## Considered Options
 
--   Not checking spelling
--   Checking spelling
+-   Not checking formatting
+-   Checking formatting
 -   Which tools to use
 
 ## Decision Outcome
 
-Check spelling with CSpell; familiar with it and good enough.
+Check formatting with prettier; familiar with it and good enough.
 
 ### Consequences
 
@@ -33,4 +33,4 @@ Check spelling with CSpell; familiar with it and good enough.
 
 ## More Information
 
--   [CSpell website](https://cspell.org/)
+-   [Prettier website](https://prettier.io/)
