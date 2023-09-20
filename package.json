@@ -10,7 +10,7 @@
         "check:formatting": "wireit",
         "check:spelling": "wireit",
         "format": "prettier --write --config ./.prettierrc.yaml --ignore-path ./.gitignore --ignore-path ./.prettierignore ./",
-        "lint-staged": "wireit"
+        "check:formatting:changes": "lint-staged"
     },
     "wireit": {
         "check": {

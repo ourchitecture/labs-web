@@ -37,7 +37,8 @@ const main = async (scriptFilePath) => {
                 log.info(stdout)
             },
             (stderr) => {
-                log.error(stderr)
+                // BUG: CSpell outputs normal messages on stderr
+                log.info(stderr)
             }
         )
 
