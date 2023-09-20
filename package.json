@@ -4,7 +4,7 @@
     "description": "",
     "keywords": [],
     "author": "Ourchitecture",
-    "license": "ISC",
+    "license": "MIT OR CC0-1.0",
     "scripts": {
         "check": "wireit",
         "check:formatting": "wireit",
