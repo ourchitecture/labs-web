@@ -1,11 +1,11 @@
 globs:
     - '**/*.md'
 ignores:
-    - '#node_modules'
+    - '**/node_modules'
 
 config:
-    list-marker-space:
+    MD030:
         ul_multi: 3
         ul_single: 3
-    ul-indent:
+    MD007:
         indent: 4

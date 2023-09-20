@@ -1,5 +1,4 @@
 const winston = require('winston')
-const path = require('path')
 
 const env = require('./env')
 const host = require('./host')
@@ -54,7 +53,7 @@ const registerLoggerSingleton = (scriptFilePath) => {
     }
 
     logger = winston.createLogger({
-        level: process.env['DEBUG'] ? 'debug' : 'info',
+        level: env.isDebugMode() ? 'debug' : 'info',
         format: winston.format.combine(
             winston.format.timestamp(),
             winston.format.json()
@@ -73,7 +72,7 @@ const registerLoggerSingleton = (scriptFilePath) => {
         ],
     })
 
-    if (env.get('NODE_ENV') !== 'production') {
+    if (env.isNonProductionMode()) {
         logger.add(
             new winston.transports.Console({
                 format: winston.format.simple(),

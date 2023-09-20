@@ -1,4 +1,5 @@
 const cmd = require('../../../libraries/node/cmd')
+const env = require('../../../libraries/node/env')
 const host = require('../../../libraries/node/host')
 const log = require('../../../libraries/node/log')
 
@@ -51,6 +52,9 @@ const checkFormattingWithPrettier = async (scriptFilePath) => {
     const commandArgv = [
         'prettier',
         '--check',
+        ...(env.isDebugMode()
+            ? ['--log-level', 'debug']
+            : ['--log-level', 'log']),
         '--config',
         host.getRelativeToRootPath('./.prettierrc.yaml'),
         '--ignore-path',
@@ -66,8 +70,6 @@ const checkFormattingWithPrettier = async (scriptFilePath) => {
 const checkFormattingWithMarkdownlint = async (scriptFilePath) => {
     const commandArgv = [
         'markdownlint-cli2',
-        '**/*.md',
-        '#node_modules',
         '--config',
         host.getRelativeToRootPath('./.markdownlint-cli2.yaml'),
     ]

@@ -1,4 +1,5 @@
 const cmd = require('../../../libraries/node/cmd')
+const env = require('../../../libraries/node/env')
 const host = require('../../../libraries/node/host')
 const log = require('../../../libraries/node/log')
 
@@ -17,7 +18,9 @@ const main = async (scriptFilePath) => {
         'cspell',
         host.getRelativeToRootPath('./'),
         '--gitignore',
-        '--no-progress',
+        ...(env.isDebugMode()
+            ? ['--show-context', '--show-suggestions']
+            : ['--no-progress']),
         '--config',
         host.getRelativeToRootPath('./cspell.config.yaml'),
         '--locale',

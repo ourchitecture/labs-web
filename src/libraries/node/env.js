@@ -14,8 +14,9 @@ const get = (key) => {
 
 const getAsBoolean = (key) => {
     if (hasKey(key) && process.env[key]) {
-        return JSON.parse(process.env[key])
+        return JSON.parse(process.env[key]) ? true : false
     }
+
     return false
 }
 
@@ -28,6 +29,18 @@ const isContinuousIntegrationMode = () => {
     return getAsBoolean('CI') === true
 }
 
+const isDebugMode = () => {
+    return getAsBoolean('DEBUG') === true
+}
+
+const isProductionMode = () => {
+    return get('NODE_ENV') === 'production'
+}
+
+const isNonProductionMode = () => {
+    return !isProductionMode()
+}
+
 module.exports = {
     assertRequired,
     get,
@@ -35,4 +48,7 @@ module.exports = {
     getRequired,
     hasKey,
     isContinuousIntegrationMode,
+    isDebugMode,
+    isNonProductionMode,
+    isProductionMode,
 }
