@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  header
+    h1= title
+  if todos.length > 0
+    main#main Some main content
+    footer#footer Some footer content

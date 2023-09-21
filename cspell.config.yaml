@@ -15,6 +15,7 @@ ignoreWords:
     - nvmrc
     - Ourchitecture
     - pnpmrc
+    - todos
     - todomvc
     - wireit
 import: []
