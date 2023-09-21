@@ -29,5 +29,5 @@ the "todomvc" project.
 
 ## More Information
 
--   ["todomvc" Application Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md)
+-   ["todomvc" Application Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md#functionality)
 -   ["todo-list-app" Program Specification](https://todo-list-app.readthedocs.io/#program-specification)
