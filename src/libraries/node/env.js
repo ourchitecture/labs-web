@@ -1,18 +1,18 @@
-const hasKey = (key) => {
+export const hasKey = (key) => {
     return key in process.env
 }
 
-const assertRequired = (key) => {
+export const assertRequired = (key) => {
     if (!hasKey(key)) {
         throw new Error(`Missing required environment variable "${key}"`)
     }
 }
 
-const get = (key) => {
+export const get = (key) => {
     return process.env[key]
 }
 
-const getAsBoolean = (key) => {
+export const getAsBoolean = (key) => {
     if (hasKey(key) && process.env[key]) {
         return JSON.parse(process.env[key]) ? true : false
     }
@@ -20,35 +20,23 @@ const getAsBoolean = (key) => {
     return false
 }
 
-const getRequired = (key) => {
+export const getRequired = (key) => {
     assertRequired(key)
     return process.env[key]
 }
 
-const isContinuousIntegrationMode = () => {
+export const isContinuousIntegrationMode = () => {
     return getAsBoolean('CI') === true
 }
 
-const isDebugMode = () => {
+export const isDebugMode = () => {
     return getAsBoolean('DEBUG') === true
 }
 
-const isProductionMode = () => {
+export const isProductionMode = () => {
     return get('NODE_ENV') === 'production'
 }
 
-const isNonProductionMode = () => {
+export const isNonProductionMode = () => {
     return !isProductionMode()
-}
-
-module.exports = {
-    assertRequired,
-    get,
-    getAsBoolean,
-    getRequired,
-    hasKey,
-    isContinuousIntegrationMode,
-    isDebugMode,
-    isNonProductionMode,
-    isProductionMode,
 }

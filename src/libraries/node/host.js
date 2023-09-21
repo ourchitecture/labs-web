@@ -1,6 +1,10 @@
-const fs = require('fs')
-const path = require('path')
-const dotenv = require('dotenv')
+import { URL } from 'url'
+
+import * as fs from 'fs'
+import * as path from 'path'
+import * as dotenv from 'dotenv'
+
+const __dirname = new URL('.', import.meta.url).pathname
 
 const ansiRegex = ({ onlyFirst = false } = {}) => {
     const pattern = [
@@ -13,13 +17,13 @@ const ansiRegex = ({ onlyFirst = false } = {}) => {
 
 const escapeAnsiRegex = ansiRegex()
 
-const sleep = (ms) => {
+export const sleep = (ms) => {
     return new Promise((resolve) => {
         setTimeout(resolve, ms)
     })
 }
 
-const pathExists = async (hostPath) => {
+export const pathExists = async (hostPath) => {
     try {
         fs.accessSync(hostPath, fs.constants.F_OK)
         return true
@@ -28,19 +32,19 @@ const pathExists = async (hostPath) => {
     }
 }
 
-const getPathName = (hostPath) => {
+export const getPathName = (hostPath) => {
     return path.basename(hostPath).replace(path.extname(hostPath), '')
 }
 
-const getCurrentWorkingDirectoryPath = () => {
+export const getCurrentWorkingDirectoryPath = () => {
     return __dirname
 }
 
-const getRelativePath = (...args) => {
+export const getRelativePath = (...args) => {
     return path.join(...args)
 }
 
-const getRelativeToRootPath = (hostPath) => {
+export const getRelativeToRootPath = (hostPath) => {
     const relativePath = path.relative(
         path.join(getCurrentWorkingDirectoryPath(), '../../../'),
         hostPath
@@ -49,24 +53,24 @@ const getRelativeToRootPath = (hostPath) => {
     return relativePath && relativePath.trim().length > 0 ? relativePath : './'
 }
 
-const getProjectRootPath = () => {
+export const getProjectRootPath = () => {
     return path.join(getCurrentWorkingDirectoryPath(), '../../../')
 }
 
-const deletePath = async (hostPath) => {
+export const deletePath = async (hostPath) => {
     return fs.promises.unlink(hostPath)
 }
 
-const readFile = async (hostPath) => {
+export const readFile = async (hostPath) => {
     return fs.promises.readFile(hostPath, { encoding: 'utf-8' })
 }
 
-const readJson = async (hostPath) => {
+export const readJson = async (hostPath) => {
     const content = await readFile(hostPath)
     return JSON.parse(content)
 }
 
-const writeFile = async (
+export const writeFile = async (
     hostPath,
     content,
     { cleanAnsiCharacters = true } = {}
@@ -78,21 +82,21 @@ const writeFile = async (
     return fs.promises.writeFile(hostPath, cleanContent, { encoding: 'utf-8' })
 }
 
-const writeJson = async (hostPath, value) => {
+export const writeJson = async (hostPath, value) => {
     const content = JSON.stringify(value)
     return await writeFile(hostPath, content)
 }
 
-const loadDotenv = async () => {
+export const loadDotenv = async () => {
     dotenv.config()
 }
 
-const getTaskOutputDirectoryPath = (scriptFilePath) => {
+export const getTaskOutputDirectoryPath = (scriptFilePath) => {
     const relativeScriptPath = getRelativeToRootPath(scriptFilePath)
     return `./.task-output/${relativeScriptPath}/`
 }
 
-const getTaskOutputFilePath = (scriptFilePath, relativeFilePath) => {
+export const getTaskOutputFilePath = (scriptFilePath, relativeFilePath) => {
     const taskOutputFilePath = path.join(
         getTaskOutputDirectoryPath(scriptFilePath),
         `./${relativeFilePath}`
@@ -100,27 +104,8 @@ const getTaskOutputFilePath = (scriptFilePath, relativeFilePath) => {
     return taskOutputFilePath
 }
 
-const mkdir = async (directoryPath, isRecursive) => {
+export const mkdir = async (directoryPath, isRecursive) => {
     if (!(await pathExists(directoryPath))) {
         await fs.promises.mkdir(directoryPath, { recursive: isRecursive })
     }
-}
-
-module.exports = {
-    deletePath,
-    pathExists,
-    getCurrentWorkingDirectoryPath,
-    getPathName,
-    getProjectRootPath,
-    getRelativePath,
-    getRelativeToRootPath,
-    getTaskOutputDirectoryPath,
-    getTaskOutputFilePath,
-    loadDotenv,
-    mkdir,
-    readFile,
-    readJson,
-    sleep,
-    writeFile,
-    writeJson,
 }

@@ -1,7 +1,11 @@
-const cmd = require('../../../libraries/node/cmd')
-const env = require('../../../libraries/node/env')
-const host = require('../../../libraries/node/host')
-const log = require('../../../libraries/node/log')
+import { URL } from 'url'
+
+import * as cmd from '../../../libraries/node/cmd.js'
+import * as env from '../../../libraries/node/env.js'
+import * as host from '../../../libraries/node/host.js'
+import * as log from '../../../libraries/node/log.js'
+
+const __filename = new URL('', import.meta.url).pathname
 
 const main = async (scriptFilePath) => {
     log.registerLoggerSingleton(scriptFilePath)

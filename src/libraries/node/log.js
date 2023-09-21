@@ -1,7 +1,7 @@
-const winston = require('winston')
+import winston from 'winston'
 
-const env = require('./env')
-const host = require('./host')
+import * as env from './env.js'
+import * as host from './host.js'
 
 let logger
 
@@ -16,7 +16,7 @@ const ansiRegex = ({ onlyFirst = false } = {}) => {
 
 const escapeAnsiRegex = ansiRegex()
 
-const log = (level, message, metadata) => {
+export const log = (level, message, metadata) => {
     if (!logger) {
         throw new Error(
             'Missing registered logger singleton. Did you forget to call `registerNamedLoggerSingleton`?'
@@ -36,12 +36,12 @@ const log = (level, message, metadata) => {
     logger.log(level, cleanMessage, winstonMetadata)
 }
 
-const debug = (message, ...args) => log('debug', message, args)
-const info = (message, ...args) => log('info', message, args)
-const warn = (message, ...args) => log('warn', message, args)
-const error = (message, ...args) => log('error', message, args)
+export const debug = (message, ...args) => log('debug', message, args)
+export const info = (message, ...args) => log('info', message, args)
+export const warn = (message, ...args) => log('warn', message, args)
+export const error = (message, ...args) => log('error', message, args)
 
-const registerLoggerSingleton = (scriptFilePath) => {
+export const registerLoggerSingleton = (scriptFilePath) => {
     const scriptRelativeFilePath = host.getRelativeToRootPath(scriptFilePath)
     const outputDirectoryPath = host.getTaskOutputDirectoryPath(scriptFilePath)
     const cleanId = scriptRelativeFilePath.replace(/[\\.]/gi, '-')
@@ -81,14 +81,4 @@ const registerLoggerSingleton = (scriptFilePath) => {
     }
 
     return logger
-}
-
-module.exports = {
-    debug,
-    default: log,
-    error,
-    info,
-    log,
-    registerLoggerSingleton,
-    warn,
 }

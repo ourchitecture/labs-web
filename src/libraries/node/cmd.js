@@ -1,11 +1,14 @@
-const util = require('node:util')
-const execClassic = require('node:child_process').exec
-const execFileClassic = require('node:child_process').execFile
+import util from 'node:util'
+import {
+    exec as execClassic,
+    execFile as execFileClassic,
+} from 'node:child_process'
+
+import * as log from './log.js'
+
 const execFile = util.promisify(execFileClassic)
 
-const log = require('./log')
-
-const getStdOutAndOrStdErr = (stdout, stderr) => {
+export const getStdOutAndOrStdErr = (stdout, stderr) => {
     // not really sure what else to do here, especially when the exitCode is zero
     if (stdout && stderr) {
         return String(stdout) + '\n\n' + String(stderr)
@@ -18,7 +21,7 @@ const getStdOutAndOrStdErr = (stdout, stderr) => {
     return String(stdout)
 }
 
-const runWithProgress = async (cmd, argv, onStdOut, onStdErr) => {
+export const runWithProgress = async (cmd, argv, onStdOut, onStdErr) => {
     return new Promise((resolve, reject) => {
         let stdout = '',
             stderr = '',
@@ -86,7 +89,7 @@ const runWithProgress = async (cmd, argv, onStdOut, onStdErr) => {
     })
 }
 
-const expectStdOut = (error, exitCode, stdout, stderr) => {
+export const expectStdOut = (error, exitCode, stdout, stderr) => {
     if (error) {
         throw error
     }
@@ -105,7 +108,7 @@ const expectStdOut = (error, exitCode, stdout, stderr) => {
     return getStdOutAndOrStdErr(stdout, stderr)
 }
 
-const runWithProgressAndExpectStdOutCommand = async (
+export const runWithProgressAndExpectStdOutCommand = async (
     cmd,
     argv,
     onStdOut,
@@ -121,7 +124,7 @@ const runWithProgressAndExpectStdOutCommand = async (
     return expectStdOut(error, exitCode, stdout, stderr)
 }
 
-const runWithProgressAndExpectStdErrCommand = async (cmd, argv) => {
+export const runWithProgressAndExpectStdErrCommand = async (cmd, argv) => {
     const { exitCode, error, stdout, stderr } = await runWithProgress(cmd, argv)
 
     if (error) {
@@ -135,7 +138,7 @@ const runWithProgressAndExpectStdErrCommand = async (cmd, argv) => {
     }
 }
 
-const runCommand = async (cmd, argv) => {
+export const runCommand = async (cmd, argv) => {
     const fullCommand = cmd + (argv ? ' ' + argv.join(' ') : '')
 
     log.debug(fullCommand)
@@ -192,7 +195,7 @@ const runCommand = async (cmd, argv) => {
     }
 }
 
-const runAndExpectStdOutCommand = async (cmd, argv) => {
+export const runAndExpectStdOutCommand = async (cmd, argv) => {
     const { exitCode, error, stdout, stderr } = await runCommand(cmd, argv)
 
     if (error) throw error
@@ -217,22 +220,10 @@ const runAndExpectStdOutCommand = async (cmd, argv) => {
     return String(stdout)
 }
 
-const runAndExpectStdErrCommand = async (cmd, argv) => {
+export const runAndExpectStdErrCommand = async (cmd, argv) => {
     const { exitCode, error, stdout, stderr } = await runCommand(cmd, argv)
 
     if (error) throw error
 
     return { stdout: String(stdout), stderr: String(stderr), exitCode }
-}
-
-module.exports = {
-    default: runCommand,
-    expectStdOut,
-    getStdOutAndOrStdErr,
-    run: runCommand,
-    runAndExpectStdErrCommand,
-    runAndExpectStdOutCommand,
-    runWithProgress,
-    runWithProgressAndExpectStdErrCommand,
-    runWithProgressAndExpectStdOutCommand,
 }

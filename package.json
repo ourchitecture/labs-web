@@ -5,9 +5,11 @@
     "keywords": [],
     "author": "Ourchitecture",
     "license": "MIT OR CC0-1.0",
+    "type": "module",
     "scripts": {
         "check": "wireit",
         "check:formatting": "wireit",
+        "check:metadata": "wireit",
         "check:spelling": "wireit",
         "format": "prettier --write --config ./.prettierrc.yaml --ignore-path ./.gitignore --ignore-path ./.prettierignore ./",
         "check:formatting:changes": "lint-staged",
@@ -17,11 +19,12 @@
         "check": {
             "dependencies": [
                 "check:formatting",
+                "check:metadata",
                 "check:spelling"
             ]
         },
         "check:formatting": {
-            "command": "node ./src/tasks/node/check/formatting",
+            "command": "node ./src/tasks/node/check/formatting.js",
             "files": [
                 "**/*",
                 "!.husky",
@@ -32,8 +35,20 @@
                 "./.task-output/src/tasks/node/check/formatting.js/*"
             ]
         },
+        "check:metadata": {
+            "command": "node ./src/tasks/node/check/tests.js",
+            "files": [
+                "**/*",
+                "!.husky",
+                "!.task-output",
+                "!pnpm-lock.yaml"
+            ],
+            "output": [
+                "./.task-output/src/tasks/node/check/tests.js/*"
+            ]
+        },
         "check:spelling": {
-            "command": "node ./src/tasks/node/check/spelling",
+            "command": "node ./src/tasks/node/check/spelling.js",
             "files": [
                 "**/*",
                 "!.husky",
@@ -48,6 +63,7 @@
     "devDependencies": {
         "cspell": "^7.0.0",
         "dotenv": "^16.3.1",
+        "glob": "^10.3.5",
         "husky": "^8.0.3",
         "lint-staged": "^14.0.0",
         "markdownlint-cli2": "^0.10.0",

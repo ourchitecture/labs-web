@@ -10,9 +10,11 @@ dictionaries: []
 words: []
 ignoreWords:
     - davidanson
+    - expressjs
     - MADR
     - nvmrc
     - Ourchitecture
     - pnpmrc
+    - todomvc
     - wireit
 import: []

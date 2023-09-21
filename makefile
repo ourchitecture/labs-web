@@ -7,7 +7,7 @@ all: check
 
 .PHONY: init
 init:
-	@pnpm install --frozen-lockfile
+	@pnpm install --recursive --frozen-lockfile
 
 .PHONY: check
 check: init
