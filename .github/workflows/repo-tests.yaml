@@ -70,6 +70,6 @@ jobs:
               with:
                   name: task-output
                   path: |
-                      '**/.task-output/'
-                      '**/playwright-report/'
+                      **/.task-output/
+                      **/playwright-report/
                   if-no-files-found: error
