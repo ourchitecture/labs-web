@@ -2,6 +2,7 @@ globs:
     - '**/*.md'
 ignores:
     - '**/node_modules'
+    - '**/playwright-report'
 
 config:
     MD030:

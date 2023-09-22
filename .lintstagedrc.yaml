@@ -1,1 +1,1 @@
-'*': 'pnpm check:formatting'
+'*': 'pnpm test:formatting'

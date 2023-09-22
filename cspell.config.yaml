@@ -4,6 +4,7 @@ ignorePaths:
     - '**/.task-output/'
     - '**/.wireit/'
     - '**/node_modules/'
+    - '**/playwright-report/'
     - '**/pnpm-lock.yaml'
 dictionaryDefinitions: []
 dictionaries: []
@@ -12,15 +13,19 @@ words:
     - expressjs
     - resave
     - syscall
+    - textbox
+    - todomvc
     - todos
     - typeof
-    - todomvc
+    - viewports
     - wireit
 ignoreWords:
     - davidanson
+    - Durandal
     - EACCES
     - EADDRINUSE
     - MADR
+    - msedge
     - nvmrc
     - pnpmrc
 import: []

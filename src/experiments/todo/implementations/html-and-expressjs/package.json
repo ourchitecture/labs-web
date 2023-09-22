@@ -1,14 +1,22 @@
 {
-    "name": "html-and-expressjs",
+    "name": "@our-todo/html-and-expressjs",
     "version": "0.0.0",
     "private": true,
     "license": "MIT OR CC0-1.0",
     "scripts": {
-        "start": "wireit"
+        "start": "wireit",
+        "test": "wireit",
+        "test:ui": "wireit"
     },
     "wireit": {
         "start": {
             "command": "nodemon ./bin/www"
+        },
+        "test": {
+            "command": "playwright test"
+        },
+        "test:ui": {
+            "command": "playwright test --ui"
         }
     },
     "dependencies": {
@@ -22,6 +30,8 @@
         "pug": "2.0.0-beta11"
     },
     "devDependencies": {
+        "@playwright/test": "^1.38.1",
+        "@types/node": "^20.6.3",
         "nodemon": "^3.0.1",
         "wireit": "^0.10.0"
     }

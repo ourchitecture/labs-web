@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     }
 
     res.render('index', {
-        title: 'Our Todo',
+        title: 'Our Todos',
         todos: req.session.todos,
     })
 })
