@@ -2,8 +2,14 @@
     "name": "html-and-expressjs",
     "version": "0.0.0",
     "private": true,
+    "license": "MIT OR CC0-1.0",
     "scripts": {
-        "start": "nodemon ./bin/www"
+        "start": "wireit"
+    },
+    "wireit": {
+        "start": {
+            "command": "nodemon ./bin/www"
+        }
     },
     "dependencies": {
         "cookie-parser": "~1.4.4",
@@ -14,6 +20,7 @@
         "pug": "2.0.0-beta11"
     },
     "devDependencies": {
-        "nodemon": "^3.0.1"
+        "nodemon": "^3.0.1",
+        "wireit": "^0.10.0"
     }
 }

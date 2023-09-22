@@ -60,6 +60,9 @@ importers:
       nodemon:
         specifier: ^3.0.1
         version: 3.0.1
+      wireit:
+        specifier: ^0.10.0
+        version: 0.10.0
 
 packages:
 

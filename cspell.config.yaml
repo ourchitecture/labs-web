@@ -10,12 +10,16 @@ dictionaries: []
 words: []
 ignoreWords:
     - davidanson
+    - EACCES
+    - EADDRINUSE
     - expressjs
     - MADR
     - nvmrc
     - Ourchitecture
     - pnpmrc
+    - syscall
     - todos
+    - typeof
     - todomvc
     - wireit
 import: []

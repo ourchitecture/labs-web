@@ -13,7 +13,11 @@ describe('metadata tests', async () => {
         for (const allNodePackageFilePath of allNodePackageFilePaths) {
             const packageData = await host.readJson(allNodePackageFilePath)
 
-            assert.strictEqual(packageData.license, 'MIT OR CC0-1.0')
+            assert.strictEqual(
+                packageData.license,
+                'MIT OR CC0-1.0',
+                allNodePackageFilePath
+            )
         }
 
         assert.ok(true, 'All licenses pass')
