@@ -2,7 +2,7 @@
 # restore them, build the source code and run tests across different
 # versions of node.
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-name: repo-checks
+name: repo-tests
 
 on:
     push:
