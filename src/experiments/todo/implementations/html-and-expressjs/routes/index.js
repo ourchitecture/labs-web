@@ -10,6 +10,7 @@ router.get('/', function (req, res, next) {
     res.render('index', {
         title: 'Our Todos',
         todos: req.session.todos,
+        error: req.query.e || null,
     })
 })
 

@@ -1,5 +1,6 @@
 body {
-    padding: 50px;
+    margin: auto;
+    padding: 1em;
     font:
         14px 'Lucida Grande',
         Helvetica,
@@ -7,6 +8,33 @@ body {
         sans-serif;
 }
 
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+main {
+    padding: 2em;
+}
+
 a {
     color: #00b7ff;
+}
+
+ul {
+    list-style: circle;
+}
+
+li {
+    margin-left: 1.5em;
+}
+
+#error {
+    margin: 1em;
+    color: red;
+    font-style: italic;
+}
+
+input[name='new-todo'] {
+    margin-left: 0.5em;
 }

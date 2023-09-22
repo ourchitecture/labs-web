@@ -1,12 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# If pushing tags, don't test anything.
-grep "refs/tags/" </dev/stdin >/dev/null
-if [ "$?" -eq "0" ]; then
-  exit 0
-fi
-
 pnpm test
 
 # leave a little room before git messages
