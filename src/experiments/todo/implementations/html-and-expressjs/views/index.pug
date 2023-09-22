@@ -2,7 +2,7 @@ extends layout
 
 block content
   header
-    h1= title
+    h1 #{title} (#{totalViewCount} views)
   if todos.length > 0
     main#main Some main content
     footer#footer Some footer content

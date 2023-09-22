@@ -3,11 +3,26 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
+var session = require('express-session')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 
 var app = express()
+
+var sessionConfiguration = {
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    secret: 'keyboard cat',
+}
+
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sessionConfiguration.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sessionConfiguration))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

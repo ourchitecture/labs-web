@@ -7,19 +7,20 @@ ignorePaths:
     - '**/pnpm-lock.yaml'
 dictionaryDefinitions: []
 dictionaries: []
-words: []
-ignoreWords:
-    - davidanson
-    - EACCES
-    - EADDRINUSE
-    - expressjs
-    - MADR
-    - nvmrc
+words:
     - Ourchitecture
-    - pnpmrc
+    - expressjs
+    - resave
     - syscall
     - todos
     - typeof
     - todomvc
     - wireit
+ignoreWords:
+    - davidanson
+    - EACCES
+    - EADDRINUSE
+    - MADR
+    - nvmrc
+    - pnpmrc
 import: []
