@@ -5,7 +5,8 @@
 A collection of web experiments.
 
 -   Review the automation tasks [defined in "./package.json"](https://github.com/ourchitecture/labs-web/blob/main/package.json#L8).
--   See all [design decisions](./src/docs/decisions/).
+-   See general [design decisions](./src/docs/decisions/). \*Each sub-project
+    may have additional design decisions.
 
 ## License
 
