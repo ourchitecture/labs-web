@@ -129,6 +129,22 @@ test.describe('New todo', () => {
     })
 })
 
+/*
+  This checkbox toggles all the todos to the same state as itself. Make sure
+  to clear the checked state after the "Clear completed" button is clicked.
+  The "Mark all as complete" checkbox should also be updated when single todo
+  items are checked/unchecked. Eg. When all the todos are checked it should
+  also get checked.
+*/
+// https://github.com/tastejs/todomvc/blob/master/app-spec.md#mark-all-as-complete
+test.describe('Mark all as complete', () => {
+    // test('todo input exists', async ({ page }) => {
+    //     const newTodoElement = page.locator(CONFIG.home.newTodo.selector)
+    //     await expect(newTodoElement).toBeVisible()
+    //     await expect(newTodoElement).toHaveValue('')
+    // })
+})
+
 // test('get started link', async ({ page }) => {
 //   await page.goto('https://playwright.dev/');
 

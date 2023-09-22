@@ -5,7 +5,7 @@ block content
     h1=title
   main
     form(method="POST",action="/todos/create")
-      label New todo
+      label(for="new-todo") New todo
       input(name="new-todo",placeholder="Describe the todo",value="",autofocus)
       if error
         div#error= error
@@ -13,6 +13,8 @@ block content
       section#main
         ul
           each todo in todos
-            li(data-id=todo.id) #{todo.text}
+            li(data-id=todo.id)
+              input(type="checkbox",id="todo-"+todo.id,name="todo-"+todo.id)
+              label(for="todo-"+todo.id) #{todo.text}
   if todos.length > 0
     footer#footer Some footer content

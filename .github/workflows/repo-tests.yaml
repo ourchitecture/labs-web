@@ -76,7 +76,7 @@ jobs:
 
             - name: Install Playwright dependencies
               id: install-playwright-dependencies
-              if: steps.playwright-cache.outputs.cache-hit != 'true'
+              # if: steps.playwright-cache.outputs.cache-hit != 'true'
               run: pnpm dlx playwright install --with-deps
 
             - name: Run tests
