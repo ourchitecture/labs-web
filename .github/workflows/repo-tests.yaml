@@ -58,11 +58,29 @@ jobs:
               id: cache-wireit
               uses: google/wireit@setup-github-actions-caching/v1
 
+            - name: Get Playwright version
+              id: playwright-version
+              run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./src/experiments/todo/implementations/html-and-expressjs/package.json').devDependencies['@playwright/test'])")" >> $GITHUB_OUTPUT
+
+            - name: Cache playwright binaries
+              uses: actions/cache@v3
+              id: playwright-cache
+              with:
+                  path: |
+                      ~/.cache/ms-playwright
+                      key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.PLAYWRIGHT_VERSION }}
+
+            - name: Install NodeJS dependencies
+              id: install-dependencies
+              run: pnpm install --recursive --frozen-lockfile
+
+            - name: Install Playwright dependencies
+              id: install-playwright-dependencies
+              if: steps.playwright-cache.outputs.cache-hit != 'true'
+              run: pnpm dlx playwright install --with-deps
+
             - name: Run tests
-              run: |
-                  pnpm install --recursive --frozen-lockfile
-                  pnpm dlx playwright install --with-deps
-                  pnpm test
+              run: pnpm test
 
             - name: upload-task-output
               if: always()
