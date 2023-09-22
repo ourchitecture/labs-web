@@ -58,10 +58,11 @@ jobs:
               id: cache-wireit
               uses: google/wireit@setup-github-actions-caching/v1
 
-            - name: Run checks
+            - name: Run tests
               run: |
-                  pnpm install --frozen-lockfile
-                  pnpm check
+                  pnpm install --recursive --frozen-lockfile
+                  pnpm dlx playwright install --with-deps
+                  pnpm test
 
             - name: upload-task-output
               if: always()
