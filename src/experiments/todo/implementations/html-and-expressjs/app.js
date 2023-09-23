@@ -8,6 +8,7 @@ var session = require('express-session')
 var indexRouter = require('./routes/index')
 var createTodoRouter = require('./routes/createTodo')
 var toggleCompletedRouter = require('./routes/toggleCompleted')
+var saveAllRouter = require('./routes/saveAll')
 
 var app = express()
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/todos/create', createTodoRouter)
 app.use('/todos/toggle-completed', toggleCompletedRouter)
+app.use('/todos/save-all', saveAllRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

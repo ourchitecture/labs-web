@@ -5,19 +5,25 @@ block content
     h1=title
     if todos.length > 0
       form(method="POST",action="/todos/toggle-completed")
-        button(type="submit",id="toggle-completed",name="toggle-completed") Toggle completed
+        if areAllCompleted
+          button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Toggle all items as complete or incomplete") &and;
+        else
+          button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Toggle all items as complete or incomplete") &or;
     form(method="POST",action="/todos/create")
       input(name="new-todo",placeholder="What needs to be done?",value="",autofocus,aria-label="New todo")
+      button(type="submit") Submit
     if error
       div(data-testid="error",class="error")= error
   main
     if todos.length > 0
-      section(data-testid="main")
-        ul
-          each todo in todos
-            li(data-id=todo.id)
-              label(for="todo-"+todo.id)
-                input(type="checkbox",id="todo-"+todo.id,name="todo-"+todo.id,checked=todo.isCompleted)
-                span #{todo.text}
+      form(method="POST",action="/todos/save-all")
+        section(data-testid="main")
+          ul
+            each todo in todos
+              li(data-id=todo.id)
+                label(for="todo-"+todo.id)
+                  input(type="checkbox",id="todo-"+todo.id,name="completed-todo-id",checked=todo.isCompleted,value=todo.id)
+                  span #{todo.text}
+          button(type="submit") Save
   if todos.length > 0
     footer(data-testid="footer") Some footer content
