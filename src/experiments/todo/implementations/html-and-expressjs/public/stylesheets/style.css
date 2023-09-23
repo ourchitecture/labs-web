@@ -13,10 +13,6 @@ h1 {
     font-weight: bold;
 }
 
-main {
-    padding: 2em;
-}
-
 a {
     color: #00b7ff;
 }
@@ -29,7 +25,7 @@ li {
     margin-left: 1.5em;
 }
 
-#error {
+.error {
     margin: 1em;
     color: red;
     font-style: italic;

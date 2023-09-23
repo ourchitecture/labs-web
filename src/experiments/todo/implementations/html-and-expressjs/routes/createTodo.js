@@ -3,6 +3,11 @@ var uid = require('uid-safe')
 
 var router = express.Router()
 
+const TODO_STATUS = {
+    none: 'none',
+    completed: 'completed',
+}
+
 router.post('/', function (req, res, next) {
     if (!req.session.todos) {
         req.session.todos = []
@@ -28,6 +33,7 @@ router.post('/', function (req, res, next) {
     req.session.todos.push({
         id: uid.sync(18),
         text: req.body['new-todo'],
+        status: TODO_STATUS.none,
     })
 
     res.redirect('/')

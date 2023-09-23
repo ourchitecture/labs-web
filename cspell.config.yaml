@@ -28,4 +28,5 @@ ignoreWords:
     - msedge
     - nvmrc
     - pnpmrc
+    - testid
 import: []

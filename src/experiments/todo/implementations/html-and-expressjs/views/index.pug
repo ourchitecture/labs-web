@@ -3,18 +3,21 @@ extends layout
 block content
   header
     h1=title
-  main
-    form(method="POST",action="/todos/create")
-      label(for="new-todo") New todo
-      input(name="new-todo",placeholder="Describe the todo",value="",autofocus)
-      if error
-        div#error= error
     if todos.length > 0
-      section#main
+      form(method="POST",action="/todos/toggle-completed")
+        button(type="submit",id="toggle-completed",name="toggle-completed") Toggle completed
+    form(method="POST",action="/todos/create")
+      input(name="new-todo",placeholder="What needs to be done?",value="",autofocus,aria-label="New todo")
+    if error
+      div(data-testid="error",class="error")= error
+  main
+    if todos.length > 0
+      section(data-testid="main")
         ul
           each todo in todos
             li(data-id=todo.id)
-              input(type="checkbox",id="todo-"+todo.id,name="todo-"+todo.id)
-              label(for="todo-"+todo.id) #{todo.text}
+              label(for="todo-"+todo.id)
+                input(type="checkbox",id="todo-"+todo.id,name="todo-"+todo.id,checked=todo.isCompleted)
+                span #{todo.text}
   if todos.length > 0
-    footer#footer Some footer content
+    footer(data-testid="footer") Some footer content
