@@ -5,18 +5,19 @@ block content
     h1=title
     if todos.length > 0
       form(method="POST",action="/todos/toggle-completed")
+        input(type="checkbox",name="are-all-complete",checked=areAllCompleted,value="are-all-complete",hidden)
         if areAllCompleted
-          button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Toggle all items as complete or incomplete") &and;
+          button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Update the status for all todos as incomplete") &and;
         else
-          button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Toggle all items as complete or incomplete") &or;
+          button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Update the status for all todos as complete") &or;
     form(method="POST",action="/todos/create")
       input(name="new-todo",placeholder="What needs to be done?",value="",autofocus,aria-label="New todo")
       button(type="submit") Submit
     if error
       div(data-testid="error",class="error")= error
-  main
-    if todos.length > 0
-      form(method="POST",action="/todos/save-all")
+  form(method="POST",action="/todos/save-all")
+    main
+      if todos.length > 0
         section(data-testid="main")
           ul
             each todo in todos
@@ -24,6 +25,7 @@ block content
                 label(for="todo-"+todo.id)
                   input(type="checkbox",id="todo-"+todo.id,name="completed-todo-id",checked=todo.isCompleted,value=todo.id)
                   span #{todo.text}
-          button(type="submit") Save
-  if todos.length > 0
-    footer(data-testid="footer") Some footer content
+          input(type="submit",name="button-save",value="Save")
+    if todos.length > 0
+      footer(data-testid="footer")
+        input(type="submit",name="button-clear-completed",value="Clear completed")

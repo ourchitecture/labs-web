@@ -3,6 +3,8 @@ const { test, expect } = require('@playwright/test')
 
 import TodosViewModel from './todos'
 
+const doArraysMatch = (arr, target) => target.every((v) => arr.includes(v))
+
 test.beforeEach(async ({ page }) => {
     const vm = new TodosViewModel(page)
     await vm.navigateHome()
@@ -12,8 +14,13 @@ test('has title', async ({ page }) => {
     await expect(page).toHaveTitle(/Our Todos/)
 })
 
-// When there are no todos, #main and #footer should be hidden.
-// https://github.com/tastejs/todomvc/blob/master/app-spec.md#no-todos
+/**
+ * No todos
+ *
+ * When there are no todos, #main and #footer should be hidden.
+ *
+ * https://github.com/tastejs/todomvc/blob/master/app-spec.md#no-todos
+ */
 test.describe('No todos', () => {
     test('main is hidden without todos', async ({ page }) => {
         const vm = new TodosViewModel(page)
@@ -26,14 +33,17 @@ test.describe('No todos', () => {
     })
 })
 
-/*
-  New todos are entered in the input at the top of the app. The input element
-  should be focused when the page is loaded, preferably by using the autofocus
-  input attribute. Pressing Enter creates the todo, appends it to the todo
-  list, and clears the input. Make sure to .trim() the input and then check
-  that it's not empty before creating a new todo.
-*/
-// https://github.com/tastejs/todomvc/blob/master/app-spec.md#new-todo
+/**
+ * New todo
+ *
+ * New todos are entered in the input at the top of the app. The input element
+ * should be focused when the page is loaded, preferably by using the autofocus
+ * input attribute. Pressing Enter creates the todo, appends it to the todo
+ * list, and clears the input. Make sure to .trim() the input and then check
+ * that it's not empty before creating a new todo.
+ *
+ * https://github.com/tastejs/todomvc/blob/master/app-spec.md#new-todo
+ */
 test.describe('New todo', () => {
     test('todo input exists', async ({ page }) => {
         const vm = new TodosViewModel(page)
@@ -140,14 +150,17 @@ test.describe('New todo', () => {
     })
 })
 
-/*
-  This checkbox toggles all the todos to the same state as itself. Make sure
-  to clear the checked state after the "Clear completed" button is clicked.
-  The "Mark all as complete" checkbox should also be updated when single todo
-  items are checked/unchecked. Eg. When all the todos are checked it should
-  also get checked.
-*/
-// https://github.com/tastejs/todomvc/blob/master/app-spec.md#mark-all-as-complete
+/**
+ * Mark all as complete
+ *
+ * This checkbox toggles all the todos to the same state as itself. Make sure
+ * to clear the checked state after the "Clear completed" button is clicked.
+ * The "Mark all as complete" checkbox should also be updated when single todo
+ * items are checked/unchecked. Eg. When all the todos are checked it should
+ * also get checked.
+ *
+ * https://github.com/tastejs/todomvc/blob/master/app-spec.md#mark-all-as-complete
+ */
 test.describe('Mark all as complete', () => {
     test('no toggle all completed when no todos exist', async ({ page }) => {
         const vm = new TodosViewModel(page)
@@ -165,6 +178,41 @@ test.describe('Mark all as complete', () => {
         await vm.createAndSubmitNewTodoAndWaitFor('test one', () =>
             vm.getToggleAllCompleted()
         )
+    })
+
+    test('toggle all button text changes from complete to incomplete switch', async ({
+        page,
+    }) => {
+        const vm = new TodosViewModel(page)
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test one', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test two', () =>
+            vm.getMain()
+        )
+
+        await expect(
+            vm.getToggleAllCompleted(),
+            'pending toggle all completed button text'
+        ).toHaveText('∨')
+
+        // check them all
+        await vm.submitToggleAllCompletedAndWaitFor(() => vm.getMain())
+
+        await expect(
+            vm.getToggleAllCompleted(),
+            'after toggle all complete button text'
+        ).toHaveText('∧')
+
+        // uncheck them all
+        await vm.submitToggleAllCompletedAndWaitFor(() => vm.getMain())
+
+        await expect(
+            vm.getToggleAllCompleted(),
+            'after toggle all incomplete button text'
+        ).toHaveText('∨')
     })
 
     test('toggle all completed', async ({ page }) => {
@@ -219,6 +267,53 @@ test.describe('Mark all as complete', () => {
         }
 
         expect(uncheckedToDoCount).toBe(2)
+    })
+
+    test('clear completed', async ({ page }) => {
+        const vm = new TodosViewModel(page)
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test one', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test two', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test three', () =>
+            vm.getMain()
+        )
+
+        const allTodos = await vm.getAllTodos()
+
+        // check the second item
+        await allTodos[1].check()
+
+        // expecting this to remove the second item
+        await vm.clearCompleted()
+
+        const allTodoElements = await vm.getAllTodos()
+
+        const uncheckedTodoLabels = []
+
+        for (const todoElement of allTodoElements) {
+            await expect(todoElement).not.toBeChecked()
+            const todoLabel = await todoElement
+                .locator('//following-sibling::span')
+                .textContent()
+            uncheckedTodoLabels.push(todoLabel)
+        }
+
+        const expectedTodoLabels = ['test one', 'test three']
+
+        const errorMessage = `Expected "${expectedTodoLabels.join(
+            '; '
+        )}, but got "${uncheckedTodoLabels.join('; ')}"`
+
+        expect(
+            doArraysMatch(expectedTodoLabels, uncheckedTodoLabels),
+            errorMessage
+        ).toBe(true)
     })
 })
 

@@ -11,41 +11,50 @@ router.post('/', function (req, res, next) {
 
     const originalTodos = req.session.todos
 
-    // start with every todo marked as "none"
-    const updatedTodos = originalTodos.map((todo) => {
-        todo.status = TODO_STATUS.none
-        return todo
-    })
-
     const completedTodoIds = req.body['completed-todo-id']
         ? Array.isArray(req.body['completed-todo-id'])
             ? req.body['completed-todo-id']
             : [req.body['completed-todo-id']]
         : []
 
-    for (const completedTodoId of completedTodoIds) {
-        const todosRequiringCompletion = updatedTodos.filter(
-            (todo) => todo.id == completedTodoId
-        )
+    if (req.body['button-save']) {
+        // start with every todo marked as "none"
+        const updatedTodos = originalTodos.map((todo) => {
+            todo.status = TODO_STATUS.none
+            return todo
+        })
 
-        if (todosRequiringCompletion.length > 1) {
-            res.status(403)
-            res.send(
-                `Unexpected duplicate todos discovered with id: ${completedTodoId}`
+        for (const completedTodoId of completedTodoIds) {
+            const todosRequiringCompletion = updatedTodos.filter(
+                (todo) => todo.id == completedTodoId
             )
-            return
+
+            if (todosRequiringCompletion.length > 1) {
+                res.status(403)
+                res.send(
+                    `Unexpected duplicate todos discovered with id: ${completedTodoId}`
+                )
+                return
+            }
+
+            if (todosRequiringCompletion.length === 0) {
+                res.status(403)
+                res.send(`Unexpected todo id: ${completedTodoId}`)
+                return
+            }
+
+            todosRequiringCompletion[0].status = TODO_STATUS.completed
         }
 
-        if (todosRequiringCompletion.length === 0) {
-            res.status(403)
-            res.send(`Unexpected todo id: ${completedTodoId}`)
-            return
-        }
+        req.session.todos = updatedTodos
+    } else if (req.body['button-clear-completed']) {
+        const updatedTodos = originalTodos.filter((todo) => {
+            const isCompleted = completedTodoIds.includes(todo.id)
+            return !isCompleted
+        })
 
-        todosRequiringCompletion[0].status = TODO_STATUS.completed
+        req.session.todos = updatedTodos
     }
-
-    req.session.todos = updatedTodos
 
     res.redirect('/')
 })

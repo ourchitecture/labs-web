@@ -14,11 +14,12 @@ router.post('/', function (req, res, next) {
         return
     }
 
+    const targetStatus = req.body['are-all-complete']
+        ? TODO_STATUS.none
+        : TODO_STATUS.completed
+
     req.session.todos = req.session.todos.map((todo) => {
-        todo.status =
-            todo.status == TODO_STATUS.none
-                ? TODO_STATUS.completed
-                : TODO_STATUS.none
+        todo.status = targetStatus
         return todo
     })
 

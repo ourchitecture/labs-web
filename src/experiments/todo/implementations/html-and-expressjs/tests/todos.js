@@ -38,6 +38,10 @@ export default class TodosViewModel {
         return this.page.locator('button[name="toggle-completed"]')
     }
 
+    getClearCompleted() {
+        return this.page.locator('input[name="button-clear-completed"]')
+    }
+
     /**
      * Creates and submits a new todo and then waits for the list to display.
      *
@@ -77,5 +81,10 @@ export default class TodosViewModel {
         const locator = locatorFn()
         await locator.waitFor()
         return locator
+    }
+
+    async clearCompleted() {
+        await this.getClearCompleted().click()
+        await this.getMain().waitFor()
     }
 }
