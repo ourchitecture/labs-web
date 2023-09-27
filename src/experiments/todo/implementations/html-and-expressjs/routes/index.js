@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { TODO_STATUS } = require('./todos')
+const { TODO_STATUS } = require('./todos/models')
 
 const router = express.Router()
 

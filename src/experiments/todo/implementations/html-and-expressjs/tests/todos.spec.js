@@ -321,10 +321,18 @@ test.describe('Mark all as complete', () => {
 
 /**
  * Item
+ *
  * A todo item has three possible interactions:
- * Clicking the checkbox marks the todo as complete by updating its completed value and toggling the class completed on its parent <li>
- * Double-clicking the <label> activates editing mode, by toggling the .editing class on its <li>
+ *
+ * Clicking the checkbox marks the todo as complete by updating its completed
+ * value and toggling the class completed on its parent <li>
+ *
+ * Double-clicking the <label> activates editing mode, by toggling the .editing
+ * class on its <li>
+ *
  * Hovering over the todo shows the remove button (.destroy)
+ *
+ * https://github.com/tastejs/todomvc/blob/master/app-spec.md#item
  */
 test.describe('Item', () => {
     test('clicking checkbox marks todo as complete', async ({ page }) => {
@@ -340,16 +348,9 @@ test.describe('Item', () => {
         expect(true).toBe(true)
     })
 
-    test('double-clicking to edit', async ({ page }) => {
-        const vm = new TodosViewModel(page)
+    // TODO: client-side easy edit
+    // test('double-clicking to edit', async ({ page }) => {})
 
-        // Requirement: Double-clicking the <label> activates editing mode,
-        //              by toggling the .editing class on its <li>
-        // Note: this needs to be an accessible approach. Most of the
-        //       "todomvc" applications do not comply with accessibility.
-        // Also, toggling a CSS class is an implementation requirement, not
-        // a functional specification. e.g. describing the "how"
-        // TODO: edit behavior
-        expect(true).toBe(true)
-    })
+    // TODO: hovering over todo reveals remove
+    // test('hover reveals remove', async ({ page }) => {})
 })
