@@ -25,7 +25,7 @@ block content
                 label(for="todo-"+todo.id)
                   input(type="checkbox",id="todo-"+todo.id,name="completed-todo-id",checked=todo.isCompleted,value=todo.id)
                 input(type="text",data-id=todo.id,id="todo-text-"+todo.id,name="todo-text",value=todo.text)
-                input(type="submit",formaction="/todos/"+todo.id+"/remove",name="button-remove-todo-"+todo.id,value="Remove")
+                input(data-testid="button-remove-todo",type="submit",formaction="/todos/"+todo.id+"/remove",name="button-remove-todo-"+todo.id,value="Remove")
                 input(type="hidden",id="todo-id-"+todo.id,name="todo-id",value=todo.id)
           input(type="submit",name="button-save",value="Save")
     if todos.length > 0

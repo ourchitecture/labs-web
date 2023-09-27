@@ -18,6 +18,23 @@ export default class TodosViewModel {
         return await this.getMain().getByRole('checkbox').all()
     }
 
+    async getAllTodoLabels() {
+        const allTodoElements = await this.getAllTodos()
+
+        const allTodoLabels = []
+
+        for (const todoElement of allTodoElements) {
+            const todoLabel = await todoElement
+                .locator(
+                    '//parent::label/following-sibling::input[@name="todo-text"]'
+                )
+                .inputValue()
+            allTodoLabels.push(todoLabel)
+        }
+
+        return allTodoLabels
+    }
+
     getError() {
         return this.page.getByTestId('error')
     }
@@ -65,8 +82,11 @@ export default class TodosViewModel {
      */
     async submitNewTodoAndWaitFor(locatorFn) {
         await this.getNewTodo().press('Enter')
+
         const locator = locatorFn()
+
         await locator.waitFor()
+
         return locator
     }
 
@@ -78,13 +98,31 @@ export default class TodosViewModel {
      */
     async submitToggleAllCompletedAndWaitFor(locatorFn) {
         await this.getToggleAllCompleted().click()
+
         const locator = locatorFn()
+
         await locator.waitFor()
+
         return locator
     }
 
     async clearCompleted() {
         await this.getClearCompleted().click()
+
+        // Wait for submission to complete...
+        await this.getMain().waitFor()
+    }
+
+    async removeTodoByIndex(index) {
+        const allRemoveButtons = await this.getMain()
+            .getByTestId('button-remove-todo')
+            .all()
+
+        const removeButton = allRemoveButtons.at(index)
+
+        await removeButton.click()
+
+        // Wait for submission to complete...
         await this.getMain().waitFor()
     }
 }

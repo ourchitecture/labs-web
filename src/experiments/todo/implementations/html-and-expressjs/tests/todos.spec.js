@@ -293,27 +293,20 @@ test.describe('Mark all as complete', () => {
         await vm.clearCompleted()
 
         const allTodoElements = await vm.getAllTodos()
-
-        const uncheckedTodoLabels = []
+        const actualTodoLabels = await vm.getAllTodoLabels()
 
         for (const todoElement of allTodoElements) {
             await expect(todoElement).not.toBeChecked()
-            const todoLabel = await todoElement
-                .locator(
-                    '//parent::label/following-sibling::input[@name="todo-text"]'
-                )
-                .inputValue()
-            uncheckedTodoLabels.push(todoLabel)
         }
 
         const expectedTodoLabels = ['test one', 'test three']
 
         const errorMessage = `Expected "${expectedTodoLabels.join(
             '; '
-        )}, but got "${uncheckedTodoLabels.join('; ')}"`
+        )}, but got "${actualTodoLabels.join('; ')}"`
 
         expect(
-            doArraysMatch(expectedTodoLabels, uncheckedTodoLabels),
+            doArraysMatch(expectedTodoLabels, actualTodoLabels),
             errorMessage
         ).toBe(true)
     })
@@ -353,4 +346,35 @@ test.describe('Item', () => {
 
     // TODO: hovering over todo reveals remove
     // test('hover reveals remove', async ({ page }) => {})
+
+    test('remove item', async ({ page }) => {
+        const vm = new TodosViewModel(page)
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test one', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test two', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test three', () =>
+            vm.getMain()
+        )
+
+        await vm.removeTodoByIndex(1)
+
+        const actualTodoLabels = await vm.getAllTodoLabels()
+
+        const expectedTodoLabels = ['test one', 'test three']
+
+        const errorMessage = `Expected "${expectedTodoLabels.join(
+            '; '
+        )}, but got "${actualTodoLabels.join('; ')}"`
+
+        expect(
+            doArraysMatch(expectedTodoLabels, actualTodoLabels),
+            errorMessage
+        ).toBe(true)
+    })
 })
