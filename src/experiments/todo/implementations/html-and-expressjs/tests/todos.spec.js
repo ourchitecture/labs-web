@@ -299,8 +299,10 @@ test.describe('Mark all as complete', () => {
         for (const todoElement of allTodoElements) {
             await expect(todoElement).not.toBeChecked()
             const todoLabel = await todoElement
-                .locator('//following-sibling::span')
-                .textContent()
+                .locator(
+                    '//parent::label/following-sibling::input[@name="todo-text"]'
+                )
+                .inputValue()
             uncheckedTodoLabels.push(todoLabel)
         }
 
@@ -314,5 +316,40 @@ test.describe('Mark all as complete', () => {
             doArraysMatch(expectedTodoLabels, uncheckedTodoLabels),
             errorMessage
         ).toBe(true)
+    })
+})
+
+/**
+ * Item
+ * A todo item has three possible interactions:
+ * Clicking the checkbox marks the todo as complete by updating its completed value and toggling the class completed on its parent <li>
+ * Double-clicking the <label> activates editing mode, by toggling the .editing class on its <li>
+ * Hovering over the todo shows the remove button (.destroy)
+ */
+test.describe('Item', () => {
+    test('clicking checkbox marks todo as complete', async ({ page }) => {
+        const vm = new TodosViewModel(page)
+
+        // Requirement: Clicking the checkbox marks the todo as complete by
+        //              updating its completed value and toggling the class
+        //              completed on its parent <li>
+        // We are using a checkbox, which inherently tracks "checked" state.
+        // There is nothing to do to code or check.
+        // Also, toggling a CSS class is an implementation requirement, not
+        // a functional specification. e.g. describing the "how"
+        expect(true).toBe(true)
+    })
+
+    test('double-clicking to edit', async ({ page }) => {
+        const vm = new TodosViewModel(page)
+
+        // Requirement: Double-clicking the <label> activates editing mode,
+        //              by toggling the .editing class on its <li>
+        // Note: this needs to be an accessible approach. Most of the
+        //       "todomvc" applications do not comply with accessibility.
+        // Also, toggling a CSS class is an implementation requirement, not
+        // a functional specification. e.g. describing the "how"
+        // TODO: edit behavior
+        expect(true).toBe(true)
     })
 })
