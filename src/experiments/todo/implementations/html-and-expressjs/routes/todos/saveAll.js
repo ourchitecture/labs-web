@@ -71,12 +71,6 @@ const requestHandler = function (req, res, next) {
             const todoId = allTodoIds[todoIndex]
             const todoText = allTodoTexts[todoIndex]
 
-            if (todoText.trim().length === 0) {
-                res.status(403)
-                res.send(`Todo must not be empty: ${todoId}`)
-                return
-            }
-
             const matchedTodos = updatedTodos.filter(
                 (todo) => todo.id == todoId
             )
@@ -98,7 +92,10 @@ const requestHandler = function (req, res, next) {
             matchedTodos[0].text = todoText
         }
 
-        req.session.todos = updatedTodos
+        // remove all empty text todos
+        const finalTodos = updatedTodos.filter((todo) => todo.text.length > 0)
+
+        req.session.todos = finalTodos
     } else if (req.body['button-clear-completed']) {
         const updatedTodos = originalTodos.filter((todo) => {
             const isCompleted = completedTodoIds.includes(todo.id)

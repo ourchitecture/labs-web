@@ -19,20 +19,40 @@ export default class TodosViewModel {
     }
 
     async getAllTodoLabels() {
+        const allTodoElements = await this.getAllTodoInputs()
+
+        const allTodoLabels = []
+
+        for (const todoInput of allTodoElements) {
+            const todoLabel = await todoInput.inputValue()
+            allTodoLabels.push(todoLabel)
+        }
+
+        return allTodoLabels
+    }
+
+    async getAllTodoInputs() {
         const allTodoElements = await this.getAllTodos()
 
         const allTodoLabels = []
 
         for (const todoElement of allTodoElements) {
-            const todoLabel = await todoElement
-                .locator(
-                    '//parent::label/following-sibling::input[@name="todo-text"]'
-                )
-                .inputValue()
+            const todoLabel = await todoElement.locator(
+                '//parent::label/following-sibling::input[@name="todo-text"]'
+            )
+
             allTodoLabels.push(todoLabel)
         }
 
         return allTodoLabels
+    }
+
+    async clearTodoByIndex(index) {
+        const allTodoElements = await this.getAllTodoInputs()
+
+        const todo = allTodoElements.at(index)
+
+        await todo.clear()
     }
 
     getError() {
@@ -121,6 +141,15 @@ export default class TodosViewModel {
         const removeButton = allRemoveButtons.at(index)
 
         await removeButton.click()
+
+        // Wait for submission to complete...
+        await this.getMain().waitFor()
+    }
+
+    async save() {
+        const saveButton = this.page.locator('input[name="button-save"]')
+
+        await saveButton.click()
 
         // Wait for submission to complete...
         await this.getMain().waitFor()

@@ -1,6 +1,6 @@
 # Ourchitecture Web Labs
 
-[![GitHub Actions: repo-checks](https://img.shields.io/github/actions/workflow/status/ourchitecture/labs-web/repo-checks.yaml?logo=GitHub%20Actions&logoColor=white&label=repo-checks)](https://github.com/ourchitecture/labs-web/actions/workflows/repo-checks.yaml)
+[![GitHub Actions: repo-tests](https://img.shields.io/github/actions/workflow/status/ourchitecture/labs-web/repo-tests.yaml?logo=GitHub%20Actions&logoColor=white&label=repo-tests)](https://github.com/ourchitecture/labs-web/actions/workflows/repo-tests.yaml)
 
 A collection of web experiments.
 

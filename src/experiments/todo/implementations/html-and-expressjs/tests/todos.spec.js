@@ -378,3 +378,103 @@ test.describe('Item', () => {
         ).toBe(true)
     })
 })
+
+/**
+ * Editing
+ *
+ * When editing mode is activated it will hide the other controls and bring
+ * forward an input that contains the todo title, which should be focused
+ * (.focus()). The edit should be saved on both blur and enter, and the
+ * editing class should be removed. Make sure to .trim() the input and then
+ * check that it's not empty. If it's empty the todo should instead be
+ * destroyed. If escape is pressed during the edit, the edit state should be
+ * left and any changes be discarded.
+ */
+test.describe('Editing', () => {
+    test('remove todos with empty text', async ({ page }) => {
+        const vm = new TodosViewModel(page)
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test one', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test two', () =>
+            vm.getMain()
+        )
+
+        await vm.createAndSubmitNewTodoAndWaitFor('test three', () =>
+            vm.getMain()
+        )
+
+        // set "test two" to empty
+        await vm.clearTodoByIndex(1)
+
+        await vm.save()
+
+        const actualTodoLabels = await vm.getAllTodoLabels()
+
+        const expectedTodoLabels = ['test one', 'test three']
+
+        const errorMessage = `Expected "${expectedTodoLabels.join(
+            '; '
+        )}, but got "${actualTodoLabels.join('; ')}"`
+
+        expect(
+            doArraysMatch(expectedTodoLabels, actualTodoLabels),
+            errorMessage
+        ).toBe(true)
+    })
+
+    // TODO: complete tests
+})
+
+/**
+ * Counter
+ *
+ * Displays the number of active todos in a pluralized form. Make sure the
+ * number is wrapped by a <strong> tag. Also make sure to pluralize the item
+ * word correctly: 0 items, 1 item, 2 items. Example: 2 items left
+ */
+test.describe('Counter', () => {
+    // TODO: complete tests
+})
+
+/**
+ * Clear completed button
+ *
+ * Removes completed todos when clicked. Should be hidden when there are no
+ * completed todos.
+ */
+test.describe('Clear completed button', () => {
+    // TODO: complete tests
+})
+
+/**
+ * Persistence
+ *
+ * Your app should dynamically persist the todos to localStorage. If the
+ * framework has capabilities for persisting data (e.g. Backbone.sync), use
+ * that. Otherwise, use vanilla localStorage. If possible, use the keys id,
+ * title, completed for each item. Make sure to use this format for the
+ * localStorage name: todos-[framework]. Editing mode should not be persisted.
+ */
+test.describe('Persistence', () => {
+    // TODO: complete tests
+})
+
+/**
+ * Routing
+ *
+ * Routing is required for all implementations. If supported by the framework,
+ * use its built-in capabilities. Otherwise, use the Flatiron Director routing
+ * library located in the /assets folder. The following routes should be
+ * implemented: #/ (all - default), #/active and #/completed (#!/ is also
+ * allowed). When the route changes, the todo list should be filtered on a
+ * model level and the selected class on the filter links should be toggled.
+ * When an item is updated while in a filtered state, it should be updated
+ * accordingly. E.g. if the filter is Active and the item is checked, it should
+ * be hidden. Make sure the active filter is persisted on reload.
+ */
+test.describe('Routing', () => {
+    // TODO: complete tests
+})
