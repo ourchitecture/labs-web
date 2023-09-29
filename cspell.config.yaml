@@ -27,6 +27,7 @@ ignoreWords:
     - MADR
     - msedge
     - nvmrc
+    - ourchitectureio
     - pnpmrc
     - testid
 import: []

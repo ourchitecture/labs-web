@@ -30,4 +30,4 @@ block content
           input(type="submit",name="button-save",value="Save")
     if viewModel.hasTodos
       footer(data-testid="footer")
-        input(type="submit",name="button-clear-completed",value="Clear completed")
+        input(type="submit",formaction="/todos/clear-completed",name="button-clear-completed",value="Clear completed")
