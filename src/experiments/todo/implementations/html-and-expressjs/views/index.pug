@@ -17,7 +17,7 @@ block content
       div(data-testid="error",class="error")= viewModel.error
   form(method="POST",action="/todos/save-all")
     main
-      if viewModel.hasTodos > 0
+      if viewModel.hasTodos
         section(data-testid="main")
           ul
             each todoViewModel in viewModel.todos
@@ -28,6 +28,6 @@ block content
                 input(data-testid="button-remove-todo",type="submit",formaction="/todos/"+todoViewModel.id+"/remove",name="button-remove-todo-"+todoViewModel.id,value="Remove")
                 input(type="hidden",id="todo-id-"+todoViewModel.id,name="todo-id",value=todoViewModel.id)
           input(type="submit",name="button-save",value="Save")
-    if viewModel.todos.length > 0
+    if viewModel.hasTodos
       footer(data-testid="footer")
         input(type="submit",name="button-clear-completed",value="Clear completed")
