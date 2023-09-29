@@ -2,32 +2,32 @@ extends layout
 
 block content
   header
-    h1=title
-    if todos.length > 0
+    h1=viewModel.title
+    if viewModel.hasTodos
       form(method="POST",action="/todos/toggle-completed")
-        input(type="checkbox",name="are-all-complete",checked=areAllCompleted,value="are-all-complete",hidden)
-        if areAllCompleted
+        input(type="checkbox",name="are-all-complete",checked=viewModel.areAllCompleted,value="are-all-complete",hidden)
+        if viewModel.areAllCompleted
           button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Update the status for all todos as incomplete") &and;
         else
           button(type="submit",id="toggle-completed",name="toggle-completed",aria-label="Update the status for all todos as complete") &or;
     form(method="POST",action="/todos/create")
       input(name="new-todo",placeholder="What needs to be done?",value="",autofocus,aria-label="New todo")
       button(type="submit") Submit
-    if error
-      div(data-testid="error",class="error")= error
+    if viewModel.error
+      div(data-testid="error",class="error")= viewModel.error
   form(method="POST",action="/todos/save-all")
     main
-      if todos.length > 0
+      if viewModel.hasTodos > 0
         section(data-testid="main")
           ul
-            each todo in todos
-              li(data-id=todo.id)
-                label(for="todo-"+todo.id)
-                  input(type="checkbox",id="todo-"+todo.id,name="completed-todo-id",checked=todo.isCompleted,value=todo.id)
-                input(type="text",data-id=todo.id,id="todo-text-"+todo.id,name="todo-text",value=todo.text)
-                input(data-testid="button-remove-todo",type="submit",formaction="/todos/"+todo.id+"/remove",name="button-remove-todo-"+todo.id,value="Remove")
-                input(type="hidden",id="todo-id-"+todo.id,name="todo-id",value=todo.id)
+            each todoViewModel in viewModel.todos
+              li(data-id=todoViewModel.id)
+                label(for="todo-"+todoViewModel.id)
+                  input(type="checkbox",id="todo-"+todoViewModel.id,name="completed-todo-id",checked=todoViewModel.isCompleted,value=todoViewModel.id)
+                input(type="text",data-id=todoViewModel.id,id="todo-text-"+todoViewModel.id,name="todo-text",value=todoViewModel.text)
+                input(data-testid="button-remove-todo",type="submit",formaction="/todos/"+todoViewModel.id+"/remove",name="button-remove-todo-"+todoViewModel.id,value="Remove")
+                input(type="hidden",id="todo-id-"+todoViewModel.id,name="todo-id",value=todoViewModel.id)
           input(type="submit",name="button-save",value="Save")
-    if todos.length > 0
+    if viewModel.todos.length > 0
       footer(data-testid="footer")
         input(type="submit",name="button-clear-completed",value="Clear completed")
